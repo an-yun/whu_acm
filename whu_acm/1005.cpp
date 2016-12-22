@@ -5,19 +5,19 @@ using std::map;
 using std::pair;
 
 
-int weight[100];//È¨ÖØ
-int value[100];//·ÖÊı
+int weight[100];//æƒé‡
+int value[100];//åˆ†æ•°
 int sovle_0_1_pack(int animal_size, int total_c);
 
 int main1005()
 {
-	int animal_size;	//	¶¯Îï¸öÊı
+	int animal_size;	//	åŠ¨ç‰©ä¸ªæ•°
 	while (scanf("%d", &animal_size) == 1)
 	{
-		//ÊäÈë¶¯ÎïĞÅÏ¢
+		//è¾“å…¥åŠ¨ç‰©ä¿¡æ¯
 		for (int i = 0; i < animal_size; i++)
 			scanf("%d %d", &weight[i], &value[i]);
-		int total_c;	// ×ÜÈİÁ¿
+		int total_c;	// æ€»å®¹é‡
 		scanf("%d", &total_c);
 
 		//this is my first temp
@@ -39,8 +39,8 @@ int sovle_0_1_pack(int animal_size, int total_c)
 		for (map<int, int>::iterator b = optimal_value.begin(), e = optimal_value.end(); b != e; b++)
 		{
 			int num_1_c = (*b).first, num_1_p = (*b).second;
-			int new_c = num_1_c + current_anmal_weight;//ĞÂÈİÁ¿
-			int new_p = num_1_p + current_anmal_point;//ĞÂ·ÖÊı
+			int new_c = num_1_c + current_anmal_weight;//æ–°å®¹é‡
+			int new_p = num_1_p + current_anmal_point;//æ–°åˆ†æ•°
 			if (new_c <= total_c)
 			{
 				map<int, int>::iterator lower_solution = --optimal_value.upper_bound(new_c);
@@ -49,11 +49,11 @@ int sovle_0_1_pack(int animal_size, int total_c)
 			}
 			else break;
 		}
-		//ºÏ²¢ÌøÔ¾µã
+		//åˆå¹¶è·³è·ƒç‚¹
 		map<int, int> new_optimal_value = optimal_value;
 		for (map<int, int>::iterator b = add_optimal_value.begin(), e = add_optimal_value.end(); b != e; b++)
 			new_optimal_value[(*b).first] = (*b).second;
-		//È¥µô¿ØÖÆµã
+		//å»æ‰æ§åˆ¶ç‚¹
 		optimal_value.clear();
 		map<int, int>::iterator last_b = new_optimal_value.begin();
 		int last_c = (*last_b).first, last_p = (*last_b).second;

@@ -1,59 +1,59 @@
 #include <stdio.h>
 #include <string.h>
 
-char one_line[2004];//Ã¿Ò»ĞĞÄÚÈİ
-long one_line_sign[2004];//¼ÇÂ¼Ã¿Ò»ÁĞµÄ³öÏÖµÄ°×É«·½¸ñÊıÄ¿
-long left_up_sum[2004];//µ±Ç°ÁĞĞÎ³É¾ØĞÎµÄ×óÉÏ½Ç¶¥µã¿ÉÄÜµÄÑ¡ÔñÊıÄ¿  
-int  min_white; //×îÉÙÁ¬Ğø°×É«·½¸ñµÄÁĞºÅ
-long long result;//×îÖÕ½á¹û
+char one_line[2004];//æ¯ä¸€è¡Œå†…å®¹
+long one_line_sign[2004];//è®°å½•æ¯ä¸€åˆ—çš„å‡ºç°çš„ç™½è‰²æ–¹æ ¼æ•°ç›®
+long left_up_sum[2004];//å½“å‰åˆ—å½¢æˆçŸ©å½¢çš„å·¦ä¸Šè§’é¡¶ç‚¹å¯èƒ½çš„é€‰æ‹©æ•°ç›®  
+int  min_white; //æœ€å°‘è¿ç»­ç™½è‰²æ–¹æ ¼çš„åˆ—å·
+long long result;//æœ€ç»ˆç»“æœ
 
-long row_size, column_size;//ĞĞÊı ÁĞÊı
+long row_size, column_size;//è¡Œæ•° åˆ—æ•°
 
 
 int main1012()
 {
 	while(scanf("%ld %ld\n",&row_size,&column_size) == 2)
 	{
-		result = 0;//½á¹ûÖÃÁã
-		memset(one_line_sign, 0, sizeof(long)*(column_size + 1));//Ã¿Ò»ÁĞµÄ³öÏÖµÄ°×É«·½¸ñÊıÄ¿ÖÃÁã
+		result = 0;//ç»“æœç½®é›¶
+		memset(one_line_sign, 0, sizeof(long)*(column_size + 1));//æ¯ä¸€åˆ—çš„å‡ºç°çš„ç™½è‰²æ–¹æ ¼æ•°ç›®ç½®é›¶
 		for (int line_num = 1; line_num <= row_size; ++line_num)
 		{
-			fgets(one_line, 2004, stdin);//¶ÁÈ¡Ã¿Ò»ĞĞ
+			fgets(one_line, 2004, stdin);//è¯»å–æ¯ä¸€è¡Œ
 			for(int column_num =0;column_num<column_size;++column_num)
 			{
-				//¼ÇÂ¼µÚcolumn_num+1ÁĞÁ¬Ğø³öÏÖµÄ°×É«·½¿éÊıÄ¿
-				if (one_line[column_num] == 'w')//Èç¹ûÊÇ°×É«µÄ£¬ÔÚÔ­À´Á¬ĞøÊıÄ¿µÄ»ù´¡ÉÏ¼Ó1
+				//è®°å½•ç¬¬column_num+1åˆ—è¿ç»­å‡ºç°çš„ç™½è‰²æ–¹å—æ•°ç›®
+				if (one_line[column_num] == 'w')//å¦‚æœæ˜¯ç™½è‰²çš„ï¼Œåœ¨åŸæ¥è¿ç»­æ•°ç›®çš„åŸºç¡€ä¸ŠåŠ 1
 					one_line_sign[column_num + 1]++;
-				else one_line_sign[column_num + 1] = 0;//·ñÔòÖÃÁã
+				else one_line_sign[column_num + 1] = 0;//å¦åˆ™ç½®é›¶
 			}
 
-			//¿ªÊ¼¼ÆËãÒÔline_numĞĞ £¬column_numÁĞ´¦µÄ·½¸ñÎªÓÒÏÂ½ÇµÄ¶¥µãµÄ¾ØĞÎÊıÄ¿
+			//å¼€å§‹è®¡ç®—ä»¥line_numè¡Œ ï¼Œcolumn_numåˆ—å¤„çš„æ–¹æ ¼ä¸ºå³ä¸‹è§’çš„é¡¶ç‚¹çš„çŸ©å½¢æ•°ç›®
 			for (int column_num = 1; column_num<=column_size; ++column_num)
 			{
 				if (one_line_sign[column_num] >= one_line_sign[column_num - 1])
-					//Èç¹û±ÈÇ°Ò»ÁĞµÄÁ¬Ğø°×·½¸ñ¶à£¬Ö±½Ó¼ÓÈëÇ°Ò»ÁĞºÍµ±Ç°ÁĞ×óÉÏ½Ç¶¥µã¿ÉÄÜµÄÑ¡ÔñÊıÄ¿
+					//å¦‚æœæ¯”å‰ä¸€åˆ—çš„è¿ç»­ç™½æ–¹æ ¼å¤šï¼Œç›´æ¥åŠ å…¥å‰ä¸€åˆ—å’Œå½“å‰åˆ—å·¦ä¸Šè§’é¡¶ç‚¹å¯èƒ½çš„é€‰æ‹©æ•°ç›®
 					left_up_sum[column_num] = left_up_sum[column_num - 1] + one_line_sign[column_num];
 				else
 				{
-					//Èç¹û±ÈÇ°Ò»ÁĞµÄÁ¬Ğø°×·½¸ñÉÙ£¬ÔòĞèÒªÕÒµ½µ±Ç°ÁĞ¼°Ö®Ç°Ğ¡ÓÚµ±Ç°ÁĞÁ¬Ğø°×É«·½¸ñµÄÄÇÒ»ÁĞ
+					//å¦‚æœæ¯”å‰ä¸€åˆ—çš„è¿ç»­ç™½æ–¹æ ¼å°‘ï¼Œåˆ™éœ€è¦æ‰¾åˆ°å½“å‰åˆ—åŠä¹‹å‰å°äºå½“å‰åˆ—è¿ç»­ç™½è‰²æ–¹æ ¼çš„é‚£ä¸€åˆ—
 					min_white = column_num;
 
 					for (int temp_min = column_num - 1; temp_min > 0 ; --temp_min)
 					{
-						//ÕÒµ½µ±Ç°ÁĞ¼°Ö®Ç°Ğ¡ÓÚµ±Ç°ÁĞÁ¬Ğø°×É«·½¸ñµÄÄÇÒ»ÁĞ
+						//æ‰¾åˆ°å½“å‰åˆ—åŠä¹‹å‰å°äºå½“å‰åˆ—è¿ç»­ç™½è‰²æ–¹æ ¼çš„é‚£ä¸€åˆ—
 						if (one_line_sign[temp_min] < one_line_sign[min_white])
 						{
 							min_white = temp_min;
 							break;
 						}
 					}
-					if(min_white == column_num)//µ±Ç°ÁĞcolumn_num×îĞ¡
+					if(min_white == column_num)//å½“å‰åˆ—column_numæœ€å°
 						left_up_sum[column_num] = column_num *one_line_sign[column_num];
-					else//min_whiteÁĞĞ¡ÓÚµ±Ç°ÁĞcolumn_num
+					else//min_whiteåˆ—å°äºå½“å‰åˆ—column_num
 						left_up_sum[column_num] = (column_num -min_white)*one_line_sign[column_num] + left_up_sum[min_white];
 
 				}
-				//½«ÒÔline_numĞĞ £¬column_numÁĞ´¦µÄ·½¸ñÎªÓÒÏÂ½ÇµÄ¶¥µã£¬³ËÉÏĞÎ³É¾ØĞÎµÄ×óÉÏ½Ç¶¥µã¿ÉÄÜµÄÑ¡ÔñÊıÄ¿£¬¼ÓÈëµ½×îÖÕ½á¹û
+				//å°†ä»¥line_numè¡Œ ï¼Œcolumn_numåˆ—å¤„çš„æ–¹æ ¼ä¸ºå³ä¸‹è§’çš„é¡¶ç‚¹ï¼Œä¹˜ä¸Šå½¢æˆçŸ©å½¢çš„å·¦ä¸Šè§’é¡¶ç‚¹å¯èƒ½çš„é€‰æ‹©æ•°ç›®ï¼ŒåŠ å…¥åˆ°æœ€ç»ˆç»“æœ
 				result += left_up_sum[column_num];
 			}
 		}

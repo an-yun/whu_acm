@@ -4,19 +4,19 @@
 #include <queue>
 
 /*
- *ÕâÀï¿ÉÒÔ²ÉÓÃbitset½ÚÊ¡¿Õ¼ä
+ *è¿™é‡Œå¯ä»¥é‡‡ç”¨bitsetèŠ‚çœç©ºé—´
  *#include<bitset>
  */
 using std::set;
 using std::queue;
 
-//µäĞÍµÄ¹ã¶ÈÓÅÏÈ±éÀú
+//å…¸å‹çš„å¹¿åº¦ä¼˜å…ˆéå†
 
-set<int> diagraph[200000];	//²ÉÓÃÁÚ½Ó±í´æ´¢
-int visited[200000];//±ê¼ÇÓëÆğÊ¼µãµÄ¾àÀë -1±íÊ¾»¹Ã»ÓĞ·ÃÎÊ¹ı
-int vector_size, edge_size;//¶¨µãÊı£¬±ßÊı
+set<int> diagraph[200000];	//é‡‡ç”¨é‚»æ¥è¡¨å­˜å‚¨
+int visited[200000];//æ ‡è®°ä¸èµ·å§‹ç‚¹çš„è·ç¦» -1è¡¨ç¤ºè¿˜æ²¡æœ‰è®¿é—®è¿‡
+int vector_size, edge_size;//å®šç‚¹æ•°ï¼Œè¾¹æ•°
 
-//Çóµãstart µ½ endµÄ×î¶ÌÂ·¾¶
+//æ±‚ç‚¹start åˆ° endçš„æœ€çŸ­è·¯å¾„
 int get_shortest_path(int start, int end);
 
 int main1005()
@@ -26,10 +26,10 @@ int main1005()
 	int start_vector, end_vector;
 	for(int i=0;i<edge_size;i++)
 	{
-		//ÊäÈëÃ¿Ìõ±ß
+		//è¾“å…¥æ¯æ¡è¾¹
 		scanf("%d %d", &start_vector, &end_vector);
 		if(start_vector == end_vector) continue;
-		//×¢ÒâÊÇÎŞÏòÍ¼£¬ÒªÌí¼ÓÁ½¸ö±ß£¬µÚÒ»´Î¾ÍÊÇÕâ¶ùwa
+		//æ³¨æ„æ˜¯æ— å‘å›¾ï¼Œè¦æ·»åŠ ä¸¤ä¸ªè¾¹ï¼Œç¬¬ä¸€æ¬¡å°±æ˜¯è¿™å„¿wa
 		diagraph[start_vector].insert(end_vector);
 		diagraph[end_vector].insert(start_vector);
 	}
@@ -38,7 +38,7 @@ int main1005()
 	scanf("%d", &query_number);
 	for(int i=0;i<query_number;i++)
 	{
-		//Ö´ĞĞÃ¿Ò»´Î²éÑ¯
+		//æ‰§è¡Œæ¯ä¸€æ¬¡æŸ¥è¯¢
 		scanf("%d %d", &start_vector, &end_vector);
 		printf("%d\n", get_shortest_path(start_vector,end_vector));
 	}
@@ -47,15 +47,15 @@ int main1005()
 
 int get_shortest_path(int start, int end)
 {
-	if (start == end) return 0;//ÆğµãºÍÖÕµãÊÇÍ¬Ò»¸öµã
-	memset(visited, -1, sizeof(int) * vector_size);//·ÃÎÊ±ê¼ÇÖÃÁã
-	queue<int> rest_vectors;//ÓÃÓÚ´æ´¢´ø·ÃÎÊ½ÚµãµÄ¶ÓÁĞ
+	if (start == end) return 0;//èµ·ç‚¹å’Œç»ˆç‚¹æ˜¯åŒä¸€ä¸ªç‚¹
+	memset(visited, -1, sizeof(int) * vector_size);//è®¿é—®æ ‡è®°ç½®é›¶
+	queue<int> rest_vectors;//ç”¨äºå­˜å‚¨å¸¦è®¿é—®èŠ‚ç‚¹çš„é˜Ÿåˆ—
 
-	//ÆğÊ¼½Úµã
+	//èµ·å§‹èŠ‚ç‚¹
 	rest_vectors.push(start);
 	visited[start] = 0;
 
-	//½øĞĞ¹ã¶ÈÓÅÏÈ±éÀú
+	//è¿›è¡Œå¹¿åº¦ä¼˜å…ˆéå†
 	int top_vector;
 	while(!rest_vectors.empty())
 	{
@@ -68,16 +68,16 @@ int get_shortest_path(int start, int end)
 		for(set<int>::iterator edge_b = top_vector_edges.begin(), edge_e = top_vector_edges.end();edge_b != edge_e;edge_b++)
 		{
 			int the_vector = *edge_b;
-			if (the_vector == end)//Èç¹ûÓöµ½ÁËÖÕµã
+			if (the_vector == end)//å¦‚æœé‡åˆ°äº†ç»ˆç‚¹
 				return visited[top_vector];
-			if(visited[the_vector] < 0)//Èç¹ûµ±Ç°µã»¹Ã»ÓĞ·ÃÎÊ¹ı
+			if(visited[the_vector] < 0)//å¦‚æœå½“å‰ç‚¹è¿˜æ²¡æœ‰è®¿é—®è¿‡
 			{
-				visited[the_vector] = visited[top_vector] + 1;//¼ÆËã¾àÀë
-				rest_vectors.push(the_vector);//½ø¶ÓÁĞ
+				visited[the_vector] = visited[top_vector] + 1;//è®¡ç®—è·ç¦»
+				rest_vectors.push(the_vector);//è¿›é˜Ÿåˆ—
 			}
 		}
 
 	}
-	//start ºÍ end ²»ÏàÁ¬
+	//start å’Œ end ä¸ç›¸è¿
 	return -1;
 }
