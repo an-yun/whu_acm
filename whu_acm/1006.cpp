@@ -19,7 +19,7 @@ int vector_size, edge_size;//定点数，边数
 //求点start 到 end的最短路径
 int get_shortest_path(int start, int end);
 
-int main1005()
+int main1006()
 {
 	scanf("%d %d\n", &vector_size, &edge_size);
 
