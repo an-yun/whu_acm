@@ -48,7 +48,7 @@ int temp_position, temp_direction;//临时位置 临时方向
 int true_i, ant_no, ant_t_position;
 
 //蚂蚁位置比较器
-bool ants_comparator(const AntsInfor &ants1, const AntsInfor &ants2)
+inline bool ants_comparator(const AntsInfor &ants1, const AntsInfor &ants2)
 {
 	return ants1.position < ants2.position;
 }
@@ -102,7 +102,7 @@ int main1027()
 }
 
 
-void solve_one_case()
+inline void solve_one_case()
 {
 	scanf("%d %d %d", &parts_num, &ants_num, &t);
 
@@ -114,6 +114,14 @@ void solve_one_case()
 		one_ants_infor.index = ants_index;
 		one_ants_infor.position = temp_position;
 		one_ants_infor.is_clockwise = temp_direction == 1;
+	}
+	if(t == 0)//0时刻不用计算
+	{
+		//输出结果
+		for (int i = 0; i < ants_num - 1; i++)
+			printf("%d ", ants_infor[i].position);
+		printf("%d", ants_infor[ants_num - 1].position);
+		return;
 	}
 	sort(ants_infor, ants_infor + ants_num, ants_comparator);
 	//对顺时针和逆时针蚂蚁分区
@@ -170,7 +178,7 @@ void solve_one_case()
 }
 
 
-int binary_search(AntsInfor ** ants_start, int n, int search_key_position)
+inline int binary_search(AntsInfor ** ants_start, int n, int search_key_position)
 {
 	int low = 0, high = n - 1, mid = low + (high - low) / 2;
 	while (low <= high)
@@ -188,7 +196,7 @@ int binary_search(AntsInfor ** ants_start, int n, int search_key_position)
 }
 
 
-int count_range(AntsInfor **ants_start, int n, int start_position, int range)
+inline int count_range(AntsInfor **ants_start, int n, int start_position, int range)
 {
 	if (range > 0)//正向范围
 	{
