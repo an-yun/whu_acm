@@ -1,8 +1,10 @@
-#include <stdio.h> 
 /*
- *其实要用高精度整数运算，我也写了高精度，见主函数下面
- *因为数字不大，只有500，所以我计算出来后直接打表了
- */
+*其实要用高精度整数运算，我也写了高精度，见主函数下面
+*因为数字不大，只有500，所以我计算出来后直接打表了
+*/
+
+#include <stdio.h> 
+
 const char *nums[] =
 {
 	"1",
@@ -508,7 +510,7 @@ const char *nums[] =
 	"2402451657491850567354565640196547276147523873779598669726101549076571803534558391462069409225471629969837385870717715452214538632453"
 };
 
-int main()
+int main1036()
 {
 	unsigned index;
 	scanf("%u", &index);
@@ -518,13 +520,11 @@ int main()
 }
 
 /*
-//高精度计算前500个数
-
+//高精度计算
 #include <stdio.h> 
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <regex>
 //高精度计算
 using std::vector;
 using std::string;
@@ -559,29 +559,49 @@ public:
 
 };
 
+string get_ways_of(unsigned n);//求总数为n的方法数 n>=5
 
-int main1036()
+int main()
 {
-	printf("\"1\",\n\"2\",\n\"4\",\n\"7\",\n");
-	string result_str;
+	unsigned index;
+	scanf("%u", &index);
+	for (; index != 0; scanf("%u", &index))
+	{
+		switch (index)
+		{
+		case 1:
+			printf("1\n");
+			break;
+		case 2:
+			printf("2\n");
+			break;
+		case 3:
+			printf("4\n");
+			break;
+		case 4:
+			printf("7\n");
+			break;
+		default:
+			printf("%s\n", get_ways_of(index).c_str());
+			break;
+		}
+	}
+	return 0;
+}
+
+inline string get_ways_of(unsigned n)
+{
 	BigUnsignedInteger big_a(7), big_b(4), big_c(2), big_d(1);
-	for (int i = 0; i < 496; i++)
+	for (int i = 5; i <= n; i++)
 	{
 		big_d = big_c;
 		big_c = big_b;
 		big_b = big_a;
 		big_a = big_b + big_c + big_d;
-		result_str = big_a.to_string();
-		printf("\"%s\",\n", result_str.c_str());
 	}
-	big_d = big_c;
-	big_c = big_b;
-	big_b = big_a;
-	big_a = big_b + big_c + big_d;
-	result_str = big_a.to_string();
-	printf("\"%s\"\n", result_str.c_str());
-	return 0;
+	return big_a.to_string();
 }
+
 
 int BigUnsignedInteger::compare(const BigUnsignedInteger & integer1, const BigUnsignedInteger & integer2)
 {
@@ -666,5 +686,4 @@ string BigUnsignedInteger::to_string()
 		swap(result[i], result[result_length - i - 1]);
 	return result;
 }
-
 */
