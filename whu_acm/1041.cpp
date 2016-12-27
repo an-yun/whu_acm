@@ -7,6 +7,8 @@
 *	matdog  权重1
 *	road 权重0
 *
+*	具体算法是:Dijkstra算法
+*
 *	Magicpig到Amaze最短距离，如果小于2，输出Yes,否则No
 * 核心点：
 *	1.构造一个有向图，用邻接表
@@ -51,11 +53,12 @@ using std::vector;
 MinIndexPQ min_index_pq;
 
 unsigned test_case_size, forest_size;//测试用例数t 森林规模n
-unsigned start, end;//起始点Magicpig 终止点Amaze
+unsigned m_start, a_end;//起始点Magicpig 终止点Amaze
 
 char forest[32][32];
-unsigned forest_diagraph[901][4];//存储图结构的邻接表，0表示不链接
-unsigned get_shortest_path();
+char forest_diagraph[901][4];//存储图结构的邻接表，-1:不链接 0:权重0  1:权重1  (4个分别表示四个方向)
+bool shortest_path_less_2();//最短路径是否小于2
+void connect_four_directions(unsigned i, unsigned j);//连接左右上下四个方向的点
 
 
 #ifdef MY_DEBUG_1041
@@ -67,13 +70,17 @@ int main()
 #ifdef MY_DEBUG_1041
 	test_min_index_pq();
 #else
-	scanf("%d\n", &test_case_size);
-	for(unsigned test_case_no=0; test_case_no<test_case_size; test_case_no++)
+	scanf("%u\n", &test_case_size);
+	for (unsigned test_case_no = 0; test_case_no < test_case_size; test_case_no++)
 	{
-		scanf("%d\n", &forest_size);
+		scanf("%u\n", &forest_size);
+		
 		for (unsigned line_no = 0; line_no < forest_size; line_no++)
 			fgets(forest[line_no], 32, stdin);
-		if (get_shortest_path() < 2)
+		//注意边缘case
+		if( forest_size == 1)
+			printf("No\n");
+		else if (shortest_path_less_2())
 			printf("Yes\n");
 		else
 			printf("No\n");
@@ -84,16 +91,83 @@ int main()
 
 
 
-unsigned get_shortest_path()
+inline bool shortest_path_less_2()
 {
+	m_start = a_end = 0;
 	//构造有向图
-	return 0;
+	for (unsigned i = 0; i < forest_size; i++)
+	{
+		for (unsigned j = 0; j < forest_size; j++)
+		{
+			if (forest[i][j] == 'k')//kingkong
+				continue;
+			if (forest[i][j] == 'a')//终止点Amaze
+			{
+				a_end = i*forest_size + j + 1;
+				continue;
+			}
+			if (forest[i][j] == 'p')//起始点Magicpig
+				m_start = i*forest_size + j + 1;
+			connect_four_directions(i, j);
+		}
+	}
+	if (m_start == 0 || a_end == 0)return false;
+	//初始化
+	min_index_pq.resize(forest_size * forest_size);
+	min_index_pq.decreaseKey(m_start, 0);
+	while (!min_index_pq.empty())
+	{
+		if(min_index_pq.min_priority() > 1)//当前最短路径都大于1，所以不能到达
+			return false;
+		unsigned vector_index = min_index_pq.min_index();
+		if (vector_index == a_end)//最近点是终点，可以做出判断了
+			return min_index_pq.min_priority() < 2;
+		//访问四个相邻的店
+		unsigned current_shortest_path = min_index_pq.del_min();
+		unsigned i = (vector_index - 1) / forest_size,j= (vector_index - 1) % forest_size;
+		//上
+		if (forest_diagraph[vector_index][0] != -1)
+			min_index_pq.decreaseKey((i - 1)*forest_size + j + 1, current_shortest_path + forest_diagraph[vector_index][0]);
+		//左
+		if (forest_diagraph[vector_index][1] != -1)
+			min_index_pq.decreaseKey(i*forest_size + j, current_shortest_path + forest_diagraph[vector_index][1]);
+		//下
+		if (forest_diagraph[vector_index][2] != -1)
+			min_index_pq.decreaseKey((i + 1)*forest_size + j + 1, current_shortest_path + forest_diagraph[vector_index][2]);
+		//右
+		if (forest_diagraph[vector_index][3] != -1)
+			min_index_pq.decreaseKey(i*forest_size + j + 2, current_shortest_path + forest_diagraph[vector_index][3]);
+
+	}
+	return false;
+}
+
+inline void connect_four_directions(unsigned i, unsigned j)
+{
+	unsigned vector_index = i*forest_size + j + 1;
+	char weight = forest[i][j] == 'd' ? 1 : 0;
+	//上
+	if (i != 0 && forest[i - 1][j] != 'k')
+		forest_diagraph[vector_index][0] = weight;
+	else forest_diagraph[vector_index][0] = -1;
+	//左
+	if (j != 0 && forest[i][j - 1] != 'k')
+		forest_diagraph[vector_index][1] = weight;
+	else forest_diagraph[vector_index][1] = -1;
+	//下
+	if (i != forest_size-1 && forest[i + 1][j] != 'k')
+		forest_diagraph[vector_index][2] = weight;
+	else forest_diagraph[vector_index][2] = -1;
+	//右
+	if (j != forest_size - 1 && forest[i][j+1] != 'k')
+		forest_diagraph[vector_index][3] = weight;
+	else forest_diagraph[vector_index][3] = -1;
 }
 
 
 
 
-void MinIndexPQ::resize(unsigned new_size)
+inline void MinIndexPQ::resize(unsigned new_size)
 {
 	size = new_size;
 	memset(priorities + 1, U_C_MAX, size * sizeof(unsigned));
@@ -102,14 +176,15 @@ void MinIndexPQ::resize(unsigned new_size)
 }
 
 
-void MinIndexPQ::decreaseKey(unsigned index, unsigned value)
+inline void MinIndexPQ::decreaseKey(unsigned index, unsigned value)
 {
+	if(priorities[index] <= value) return;
 	priorities[index] = value;//减小优先级
 	swim_pq(pq_index[index]);//上行
 }
 
 
-void MinIndexPQ::swap_pq(unsigned index1, unsigned index2)
+inline void MinIndexPQ::swap_pq(unsigned index1, unsigned index2)
 {
 	//swap element
 	unsigned temp = pq[index1];
@@ -121,58 +196,58 @@ void MinIndexPQ::swap_pq(unsigned index1, unsigned index2)
 }
 
 
-void MinIndexPQ::swim_pq(unsigned index)//将pq中位于index位置上行
+inline void MinIndexPQ::swim_pq(unsigned index)//将pq中位于index位置上行
 {
 	for (; index > 1 && (priorities[pq[index]] < priorities[pq[index / 2]]); index /= 2)
 		swap_pq(index, index / 2);
 }
 
-void MinIndexPQ::sink_pq(unsigned index)//将pq中位于index位置下行
+inline void MinIndexPQ::sink_pq(unsigned index)//将pq中位于index位置下行
 {
-	while (index*2 <= size)
+	while (index * 2 <= size)
 	{
-		unsigned &left_priority = priorities[pq[index*2]];
-		if(index*2+1 > size)//没有右孩子
+		unsigned &left_priority = priorities[pq[index * 2]];
+		if (index * 2 + 1 > size)//没有右孩子
 		{
 			swap_pq(index, index * 2);
 			return;
 		}
-		unsigned &right_priority = priorities[pq[index * 2+1]];
+		unsigned &right_priority = priorities[pq[index * 2 + 1]];
 		unsigned swap_index = right_priority < left_priority ? index * 2 + 1 : index * 2;
 		swap_pq(index, swap_index);
 		index = swap_index;
 	}
 }
 
-unsigned MinIndexPQ::get_priority(unsigned index)
+inline unsigned MinIndexPQ::get_priority(unsigned index)
 {
 	return priorities[index];
 }
 
-unsigned MinIndexPQ::min_index()
+inline unsigned MinIndexPQ::min_index()
 {
 	return pq[1];
 }
 
-unsigned MinIndexPQ::min_priority()
+inline unsigned MinIndexPQ::min_priority()
 {
 	return priorities[pq[1]];
 }
 
-unsigned MinIndexPQ::del_min()
+inline unsigned MinIndexPQ::del_min()
 {
 	swap_pq(1, size);
 	size--;
 	sink_pq(1);
-	return priorities[pq[size+1]];
+	return priorities[pq[size + 1]];
 }
 
-bool MinIndexPQ::empty()
+inline bool MinIndexPQ::empty()
 {
 	return size == 0;
 }
 
-unsigned MinIndexPQ::elements_size()
+inline unsigned MinIndexPQ::elements_size()
 {
 	return size;
 }
