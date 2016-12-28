@@ -54,5 +54,14 @@
     <ClCompile Include="1204.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="1206.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="1043.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="1102.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
