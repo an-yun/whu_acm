@@ -1,10 +1,9 @@
 #include <stdio.h> 
 #include <string.h>
-#include <vector>
 /*
 *可用单源最短路径来解
 *	kingkong 不连通
-*	matdog  权重1
+*	mathdog  权重1
 *	road 权重0
 *
 *	具体算法是:Dijkstra算法
@@ -17,6 +16,9 @@
 *		(用于找最当前还未加入的距离最小的点，快速更新这个点相连的点)
 *
 *	zuo 2016-12-26
+*	
+*	2016-12-28：果然自己写数据结构容易错啊，还是没注意细节，弄得wa好久
+*		因为MinIndexPQ的sink_pq方法写的不对所以wa了很久
 */
 
 //用于调试
@@ -35,12 +37,11 @@ public:
 	unsigned min_priority();//最小的优先级
 	unsigned del_min();//删除优先级最小的元素,并返回其优先级
 	bool empty();//是否为空
-	unsigned elements_size();
 private:
 	//0号元素不使用
 	unsigned priorities[max_size + 1];//优先级
 	unsigned pq[max_size + 1];//优先队列
-	unsigned pq_index[max_size + 1];//元素序号
+	unsigned pq_index[max_size + 1];//优先队列元素编号
 	unsigned size;
 
 	void swap_pq(unsigned index1, unsigned index2);
@@ -48,15 +49,14 @@ private:
 	void sink_pq(unsigned index);
 };
 
-using std::vector;
 
 MinIndexPQ min_index_pq;
 
 unsigned test_case_size, forest_size;//测试用例数t 森林规模n
 unsigned m_start, a_end;//起始点Magicpig 终止点Amaze
 
-char forest[32][32];
-char forest_diagraph[901][4];//存储图结构的邻接表，-1:不链接 0:权重0  1:权重1  (4个分别表示四个方向)
+char forest[36][36];
+char forest_diagraph[901][4];//存储图结构的邻接表，-1:不链接 0:权重0  1:权重1  (4分别表示四个方向：左右上下)
 bool shortest_path_less_2();//最短路径是否小于2
 void connect_four_directions(unsigned i, unsigned j);//连接左右上下四个方向的点
 
@@ -65,21 +65,24 @@ void connect_four_directions(unsigned i, unsigned j);//连接左右上下四个�
 void test_min_index_pq();
 #endif
 
-int main()
+int main1041()
 {
 #ifdef MY_DEBUG_1041
 	test_min_index_pq();
 #else
-	scanf("%u\n", &test_case_size);
+	scanf("%u", &test_case_size);
 	for (unsigned test_case_no = 0; test_case_no < test_case_size; test_case_no++)
 	{
-		scanf("%u\n", &forest_size);
-		
+		scanf("%u", &forest_size);
+
 		for (unsigned line_no = 0; line_no < forest_size; line_no++)
-			fgets(forest[line_no], 32, stdin);
+			scanf("%s", forest[line_no]);
 		//注意边缘case
-		if( forest_size == 1)
-			printf("No\n");
+		if (forest_size == 1)
+		{
+			if (forest[0][0] == 'a')printf("Yes\n");
+			else printf("No\n");
+		}
 		else if (shortest_path_less_2())
 			printf("Yes\n");
 		else
@@ -115,16 +118,17 @@ inline bool shortest_path_less_2()
 	//初始化
 	min_index_pq.resize(forest_size * forest_size);
 	min_index_pq.decreaseKey(m_start, 0);
+
 	while (!min_index_pq.empty())
 	{
-		if(min_index_pq.min_priority() > 1)//当前最短路径都大于1，所以不能到达
+		if (min_index_pq.min_priority() > 1)//当前最短路径都大于1，所以不能到达
 			return false;
 		unsigned vector_index = min_index_pq.min_index();
 		if (vector_index == a_end)//最近点是终点，可以做出判断了
 			return min_index_pq.min_priority() < 2;
 		//访问四个相邻的店
 		unsigned current_shortest_path = min_index_pq.del_min();
-		unsigned i = (vector_index - 1) / forest_size,j= (vector_index - 1) % forest_size;
+		unsigned i = (vector_index - 1) / forest_size, j = (vector_index - 1) % forest_size;
 		//上
 		if (forest_diagraph[vector_index][0] != -1)
 			min_index_pq.decreaseKey((i - 1)*forest_size + j + 1, current_shortest_path + forest_diagraph[vector_index][0]);
@@ -155,11 +159,11 @@ inline void connect_four_directions(unsigned i, unsigned j)
 		forest_diagraph[vector_index][1] = weight;
 	else forest_diagraph[vector_index][1] = -1;
 	//下
-	if (i != forest_size-1 && forest[i + 1][j] != 'k')
+	if (i != forest_size - 1 && forest[i + 1][j] != 'k')
 		forest_diagraph[vector_index][2] = weight;
 	else forest_diagraph[vector_index][2] = -1;
 	//右
-	if (j != forest_size - 1 && forest[i][j+1] != 'k')
+	if (j != forest_size - 1 && forest[i][j + 1] != 'k')
 		forest_diagraph[vector_index][3] = weight;
 	else forest_diagraph[vector_index][3] = -1;
 }
@@ -178,7 +182,7 @@ inline void MinIndexPQ::resize(unsigned new_size)
 
 inline void MinIndexPQ::decreaseKey(unsigned index, unsigned value)
 {
-	if(priorities[index] <= value) return;
+	if (pq_index[index] > size || priorities[index] <= value) return;
 	priorities[index] = value;//减小优先级
 	swim_pq(pq_index[index]);//上行
 }
@@ -206,14 +210,15 @@ inline void MinIndexPQ::sink_pq(unsigned index)//将pq中位于index位置下行
 {
 	while (index * 2 <= size)
 	{
+		unsigned &current_priority = priorities[pq[index]];
 		unsigned &left_priority = priorities[pq[index * 2]];
-		if (index * 2 + 1 > size)//没有右孩子
+		unsigned swap_index = left_priority < current_priority ? index * 2 : index;
+		if (index * 2 + 1 <= size)//有右孩子
 		{
-			swap_pq(index, index * 2);
-			return;
+			unsigned &right_priority = priorities[pq[index * 2 + 1]];
+			swap_index = right_priority < priorities[pq[swap_index]] ? index * 2 + 1 : swap_index;
 		}
-		unsigned &right_priority = priorities[pq[index * 2 + 1]];
-		unsigned swap_index = right_priority < left_priority ? index * 2 + 1 : index * 2;
+		if (swap_index == index) return;//已经比孩子的优先级小了
 		swap_pq(index, swap_index);
 		index = swap_index;
 	}
@@ -245,11 +250,6 @@ inline unsigned MinIndexPQ::del_min()
 inline bool MinIndexPQ::empty()
 {
 	return size == 0;
-}
-
-inline unsigned MinIndexPQ::elements_size()
-{
-	return size;
 }
 
 #ifdef MY_DEBUG_1041
