@@ -79,3 +79,4 @@ $RECYCLE.BIN/
 .vs
 Debug
 *.opendb
+*.TMP
