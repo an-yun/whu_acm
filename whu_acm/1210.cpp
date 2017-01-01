@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
@@ -39,7 +42,7 @@ inline short get_lcs_length()
 
 
 
-int main1210()
+int main()
 {
 	while (scanf("%s %s",str1,str2) == 2)
 	{
@@ -49,3 +52,4 @@ int main1210()
 	}
 	return 0;
 }
+#endif

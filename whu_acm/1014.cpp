@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -5,7 +8,7 @@
 char a[3][3];
 int result;
 
-int main1014()
+int main()
 {
 	while (scanf("%d %d %d",a[0],a[0]+1,a[0]+2) == 3)
 	{
@@ -21,3 +24,4 @@ int main1014()
 	}
 	return 0;
 }
+#endif

@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h> 
 #include <string.h>
 #include <limits.h>
@@ -40,7 +43,7 @@ bool has_augmenting_path(int source, int destination);//是否还有增广路径
 int get_max_flow(int source, int destination);//求最大网络流
 
 
-int main1008()
+int main()
 {
 	int person_numbers, animal_numbers, edge_mark;
 	while (scanf("%d %d", &person_numbers, &animal_numbers) == 2)
@@ -186,3 +189,4 @@ int get_max_flow(int source, int destination)
 
 	return max_flow;
 }
+#endif

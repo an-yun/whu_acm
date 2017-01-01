@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h> 
 
 /*
@@ -13,7 +16,7 @@ inline int gcd(int num1, int num2)
 	else return gcd(num2, num1%num2);
 }
 
-int main1206()
+int main()
 {
 	int a, b, n,gcd_a_b;
 	while ((scanf("%d %d %d",&a,&b,&n) == 3))
@@ -35,3 +38,4 @@ int main1206()
 	}
 	return 0;
 }
+#endif

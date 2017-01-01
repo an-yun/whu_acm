@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include<stdio.h>
 
 const char *sperater_line =
@@ -19,7 +22,7 @@ void set_all_blank();
 void set_course(int day_num, int time_num,int course_name_length);
 void print_schedule_table();
 
-int main1019()
+int main()
 {
 	int course_num,course_name_length,day_num,time_num;
 	while (scanf("%d\n",&course_num) == 1)
@@ -119,3 +122,4 @@ inline void print_schedule_table()
 	printf(one_line_class, all_class + 30, all_class + 31, all_class + 32, all_class + 33, all_class + 34);
 	printf(sperater_line);
 }
+#endif

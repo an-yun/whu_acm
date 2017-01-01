@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h> 
 #include <string.h>
 /*
@@ -65,7 +68,7 @@ void connect_four_directions(unsigned i, unsigned j);//连接左右上下四个�
 void test_min_index_pq();
 #endif
 
-int main1041()
+int main()
 {
 #ifdef MY_DEBUG_1041
 	test_min_index_pq();
@@ -285,4 +288,5 @@ void test_min_index_pq()
 	printf("删除优先级最小的元素，最小元素优先级：%u\n", min_index_pq.del_min());
 	printf("索引优先队列的大小：%u\n", min_index_pq.elements_size());
 }
+#endif
 #endif

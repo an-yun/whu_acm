@@ -1,3 +1,7 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
+
 /*
 *其实要用高精度整数运算，我也写了高精度，见主函数下面
 *因为数字不大，只有500，所以我计算出来后直接打表了
@@ -510,7 +514,7 @@ const char *nums[] =
 	"2402451657491850567354565640196547276147523873779598669726101549076571803534558391462069409225471629969837385870717715452214538632453"
 };
 
-int main1036()
+int main()
 {
 	unsigned index;
 	scanf("%u", &index);
@@ -687,3 +691,4 @@ string BigUnsignedInteger::to_string()
 	return result;
 }
 */
+#endif

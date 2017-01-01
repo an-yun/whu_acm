@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h> 
 #include <algorithm>
 
@@ -16,7 +19,7 @@ int nums_count[500000];
 
 unsigned n,i;
 
-int main1024()
+int main()
 {
 	while (scanf("%d", &n) == 1)
 	{
@@ -40,3 +43,4 @@ int main1024()
 	}
 	return 0;
 }
+#endif

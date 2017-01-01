@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h>
 #include <set>
 /*
@@ -6,7 +9,7 @@
  */
 using std::set;
 
-int main1170()
+int main()
 {
 	set<unsigned> all_nums;
 	unsigned temp_num;
@@ -17,3 +20,4 @@ int main1170()
 		printf("%u ", (*b));
 	return 0;
 }
+#endif

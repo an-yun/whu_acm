@@ -1,9 +1,9 @@
 //用于运行
 //#define MAIN_CPP
 #ifdef MAIN_CPP
-
 #include <stdio.h>
 #include <vector>
+#include <string.h>
 #include <string>
 #include <algorithm>
 
@@ -12,10 +12,6 @@ using std::string;
 using std::size_t;
 using std::max;
 using std::swap;
-
-/*
- * -_- 要用高精度运算
- */
 
 
 //大整数
@@ -33,7 +29,7 @@ public:
 	explicit BigUnsignedInteger(unsigned num);
 	explicit BigUnsignedInteger(const char *num_str); //有时间实现一下
 
-	//比较
+													  //比较
 	bool operator<(const BigUnsignedInteger& integer) const { return compare(*this, integer) < 0; }
 	bool operator==(const BigUnsignedInteger& integer) const { return compare(*this, integer) == 0; }
 	bool operator>(const BigUnsignedInteger& integer) const { return compare(*this, integer) > 0; }
@@ -51,51 +47,26 @@ public:
 
 };
 
-unsigned char pre_small[26];//用来记录前面小于当前字符的个数
-char num_str[30];//输入的字符串
-unsigned num_length;//数位长度
-unsigned top_select;//当前为可选择的结果
-BigUnsignedInteger num_index_result;//结果数字
-string result_num_str;//输出结果
-void caculate_pre_small();//计算所有前面小于当前字符的个数
-
-
+char num_str1[1004];//第一个数字
+char num_str2[1004];//第二个数字
+string result_str;
+unsigned test_case_num;
 int main()
 {
-	pre_small[0] = 0;
-	for (;;)
+	scanf("%u", &test_case_num);
+	for(unsigned i=0;i<test_case_num;i++)
 	{
-		num_length = 0;
-		scanf("%u", &num_length);
-		if(num_length == 0) break;
-		scanf("%s", num_str);
-		caculate_pre_small();
-		num_index_result.set_zero();
-		for(unsigned char i = 0; i<num_length; i++)
-		{
-			top_select = num_str[i] - 'A' - pre_small[i];//i的位置可选择的字母数目
-			if (top_select != 0)
-			{
-				BigUnsignedInteger combanation_num = BigUnsignedInteger::caculate_combanation_num(25 - i, num_length - i - 1);
-				num_index_result += BigUnsignedInteger::mutiply_unsigned_char(combanation_num, top_select);
-			}
-				
-		}
-		result_num_str = num_index_result.to_string();
-		printf("%s\n", result_num_str.c_str());
+		scanf("%s", num_str1);
+		scanf("%s", num_str2);
+		BigUnsignedInteger integer1(num_str1);
+		BigUnsignedInteger integer2(num_str2);
+		integer1 += integer2;
+		result_str = integer1.to_string();
+		printf("%s\n", result_str.c_str());
 	}
 	return 0;
 }
 
-inline void caculate_pre_small()
-{
-	for(unsigned char i=1;i<num_length;i++)
-	{
-		pre_small[i] = 0;
-		for (unsigned char j = 0; j < i; j++)
-			if (num_str[j] < num_str[i]) pre_small[i]++;
-	}
-}
 
 
 BigUnsignedInteger & BigUnsignedInteger::mutiply_unsigned_char(BigUnsignedInteger & integer, unsigned u_char)
@@ -108,7 +79,7 @@ BigUnsignedInteger & BigUnsignedInteger::mutiply_unsigned_char(BigUnsignedIntege
 	}
 	size_t integer_length = nums.size();
 	unsigned temp_value = 0;//临时存储的值
-	for(size_t i=0;i<integer_length;i++)
+	for (size_t i = 0; i<integer_length; i++)
 	{
 		temp_value += nums[i] * u_char;
 		nums[i] = static_cast<unsigned char>(temp_value % 100);
@@ -136,7 +107,7 @@ int BigUnsignedInteger::compare(const BigUnsignedInteger & integer1, const BigUn
 	const vector<unsigned char> &nums2 = integer2.nums;
 	size_t length1 = nums1.size();
 	size_t length2 = nums2.size();
-	if(length1 != length2) return length1 - length2;
+	if (length1 != length2) return length1 - length2;
 	else if (length1 == 0) return 0;
 	else
 	{
@@ -158,7 +129,6 @@ BigUnsignedInteger::BigUnsignedInteger(unsigned num)
 		num /= 100;
 	}
 }
-
 
 BigUnsignedInteger::BigUnsignedInteger(const char * num_str)
 {
@@ -287,4 +257,5 @@ string BigUnsignedInteger::to_string()
 		swap(result[i], result[result_length - i - 1]);
 	return result;
 }
+
 #endif

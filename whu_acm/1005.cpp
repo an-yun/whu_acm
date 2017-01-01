@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h> 
 #include <map>
 
@@ -9,7 +12,7 @@ int weight[100];//权重
 int value[100];//分数
 int sovle_0_1_pack(int animal_size, int total_c);
 
-int main1005()
+int main()
 {
 	int animal_size;	//	动物个数
 	while (scanf("%d", &animal_size) == 1)
@@ -73,3 +76,4 @@ int sovle_0_1_pack(int animal_size, int total_c)
 	map<int, int>::iterator lower_solution = --optimal_value.upper_bound(total_c);
 	return (*lower_solution).second;
 }
+#endif

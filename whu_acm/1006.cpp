@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h>
 #include <string.h>
 #include <set>
@@ -19,7 +22,7 @@ int vector_size, edge_size;//定点数，边数
 //求点start 到 end的最短路径
 int get_shortest_path(int start, int end);
 
-int main1006()
+int main()
 {
 	scanf("%d %d\n", &vector_size, &edge_size);
 
@@ -81,3 +84,4 @@ int get_shortest_path(int start, int end)
 	//start 和 end 不相连
 	return -1;
 }
+#endif

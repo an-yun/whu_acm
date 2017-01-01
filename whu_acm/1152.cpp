@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h>
 
 /*
@@ -18,7 +21,7 @@ void swap_element(unsigned i, unsigned j);//交换i，j两个地方的元素
 bool unsigned_less(unsigned num1, unsigned num2) { return num1 < num2; }
 bool unsigned_greater(unsigned num1, unsigned num2) { return num1 > num2; }
 
-int main1152()
+int main()
 {
 	while (scanf("%u %u",&priority_queue_size, &k_th) == 2)
 	{
@@ -79,3 +82,5 @@ void swap_element(unsigned i, unsigned j)
 	the_priority_queue[i] = the_priority_queue[j];
 	the_priority_queue[j] = temp_swap;
 }
+
+#endif

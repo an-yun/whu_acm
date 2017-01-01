@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h> 
 #include <map>
 
@@ -9,7 +12,7 @@ int nums[100];//所有数字
 int num_size, total_c,max_c;	//	数字个数 可加入的总容量 最大容量
 int sovle_0_1_pack();
 
-int main1187()
+int main()
 {
 
 	while (scanf("%d", &num_size) == 1)
@@ -75,3 +78,4 @@ int sovle_0_1_pack()
 	map<int, int>::iterator lower_solution = --optimal_value.upper_bound(total_c);
 	return (*lower_solution).second;
 }
+#endif

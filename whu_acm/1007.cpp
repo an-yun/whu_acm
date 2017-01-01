@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h> 
 #include <string.h>
 #include <numeric>
@@ -10,7 +13,7 @@ int temp_time;//临时时间
 long long total_time;
 
 
-int main1007()
+int main()
 {
 	while (scanf("%d", &number_of_animals) == 1)//输入动物数量
 	{
@@ -29,3 +32,4 @@ int main1007()
 		printf("%lld\n", total_time);
 	}
 }
+#endif

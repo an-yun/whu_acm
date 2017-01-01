@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h>
 #include <string.h>
 
@@ -10,7 +13,7 @@ long long result;//最终结果
 long row_size, column_size;//行数 列数
 
 
-int main1012()
+int main()
 {
 	while(scanf("%ld %ld\n",&row_size,&column_size) == 2)
 	{
@@ -62,3 +65,4 @@ int main1012()
 
 	return 0;
 }
+#endif

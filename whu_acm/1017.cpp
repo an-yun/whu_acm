@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h>
 #include <complex>
 
@@ -21,7 +24,7 @@ void caculate_pedal(int point_index, int line_start_index, int line_end_index, i
 //计算垂足三角形的周长 三个顶点在all_points[3]，all_points[4]，all_points[5]
 double get_perimeter();
 
-int main1017()
+int main()
 {
 	int test_case_num;	//	测试用例个数
 	scanf("%d", &test_case_num);
@@ -82,3 +85,4 @@ inline double get_perimeter()
 	perimeter += sqrt(x65 + y65);
 	return perimeter;
 }
+#endif

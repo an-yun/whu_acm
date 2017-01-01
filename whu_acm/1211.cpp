@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 #include <stdio.h>
 
 /*
@@ -11,7 +14,7 @@ int operator_stack_top, operand_stack_top;//操作符栈顶  操作数栈顶
 int compare_priority(char op1, char op2);//比较优先级
 void perform_caculate(char op);//执行计算
 
-int  main1211()
+int  main()
 {
 	int test_case_num,expression_index;
 	scanf("%d\n", &test_case_num);
@@ -129,3 +132,4 @@ inline void perform_caculate(char op)
 	}
 	operand_stack_top--;
 }
+#endif

@@ -1,3 +1,6 @@
+//用于运行
+//#define MAIN_CPP
+#ifdef MAIN_CPP
 //用于调试
 //#define MY_DEBUG_1027
 
@@ -62,7 +65,7 @@ void solve_one_case();
 void test_binary_search();
 void test_count_range();
 #endif
-int main1027()
+int main()
 {
 
 
@@ -296,4 +299,5 @@ void test_count_range()
 	cout << count_range(counter_clockwise_ants, counter_clockwise_ants_num, 19, -8) << endl;
 	cout << count_range(counter_clockwise_ants, counter_clockwise_ants_num, 19, 8) << endl;
 }
+#endif
 #endif
