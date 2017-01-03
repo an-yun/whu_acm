@@ -23,22 +23,43 @@ int main()
 {
 	while (scanf("%d", &n) == 1)
 	{
-		for (i = 0; i < n; i++)
-			scanf("%d", nums_count + i);
 		if (n < 3)
 		{
+			for (i = 0; i < n; i++)
+				scanf("%d", nums_count + i);
 			printf("%d\n", nums_count[0]);
 			continue;
 		}
-		sort(nums_count, nums_count + n);
-		if (n % 2)
-			printf("%d\n", nums_count[n / 2]);
+		if (n % 2)//如果是奇数
+		{
+			nums_count[0] = 0;//做计数器
+			for (unsigned i = 0; i < n; i++)
+			{
+				scanf("%d", nums_count+1);
+				if (nums_count[0] == 0)//更新这个数
+				{
+					nums_count[0] = 1;
+					nums_count[2] = nums_count[1];
+				}
+				else
+				{
+					if (nums_count[2] == nums_count[1]) nums_count[0]++;
+					else nums_count[0]--;
+				}
+			}
+			printf("%d\n", nums_count[2]);
+			continue;
+		}
 		else//如果是偶数
 		{
+			for (i = 0; i < n; i++)
+				scanf("%d", nums_count + i);
+			sort(nums_count, nums_count + n);
 			if (nums_count[0] == nums_count[(n / 2) - 1])
 				printf("%d\n", nums_count[0]);
 			else
 				printf("%d\n", nums_count[n / 2]);
+			continue;
 		}
 	}
 	return 0;
