@@ -1,15 +1,15 @@
-//ÓÃÓÚÔËĞĞ
+//ç”¨äºè¿è¡Œ
 //#define MAIN_CPP
 #ifdef MAIN_CPP
 #include <stdio.h> 
 /*
-* ×¢Òâµ½Ö»ÓĞÒ»¸öÊıµÄ´ÎÊı´óÓÚÆäËûÊı³öÏÖµÄ´ÎÊı£º
-*	¼ÇÂ¼ÏÂÕâ¸öÊı£¬³öÏÖÒ»´Î¼Ó1£¬Ã»ÓĞ³öÏÖ¾Í¼õ1£¬Èç¹ûµ½0¸üĞÂÕâ¸öÊı
+* æ³¨æ„åˆ°åªæœ‰ä¸€ä¸ªæ•°çš„æ¬¡æ•°å¤§äºå…¶ä»–æ•°å‡ºç°çš„æ¬¡æ•°ï¼š
+*	è®°å½•ä¸‹è¿™ä¸ªæ•°ï¼Œå‡ºç°ä¸€æ¬¡åŠ 1ï¼Œæ²¡æœ‰å‡ºç°å°±å‡1ï¼Œå¦‚æœåˆ°0æ›´æ–°è¿™ä¸ªæ•°
 *
 */
 
-unsigned test_num;//²âÊÔ¹æÄ£
-int temp_num, result_num, repeat_times;//ÓÃÓÚÊäÈëµÄÊı×Ö ×îÖÕ½á¹û
+unsigned test_num;//æµ‹è¯•è§„æ¨¡
+int temp_num, result_num, repeat_times;//ç”¨äºè¾“å…¥çš„æ•°å­— æœ€ç»ˆç»“æœ
 
 int main()
 {
@@ -19,7 +19,7 @@ int main()
 		for (unsigned i = 0; i < test_num; i++)
 		{
 			scanf("%d", &temp_num);
-			if (repeat_times == 0)//¸üĞÂÕâ¸öÊı
+			if (repeat_times == 0)//æ›´æ–°è¿™ä¸ªæ•°
 			{
 				repeat_times = 1;
 				result_num = temp_num;
