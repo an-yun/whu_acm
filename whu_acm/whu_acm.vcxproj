@@ -182,11 +182,16 @@
     <ClCompile Include="1202.cpp" />
     <ClCompile Include="1203.cpp" />
     <ClCompile Include="1216.cpp" />
+    <ClCompile Include="1265.cpp" />
+    <ClCompile Include="1289.cpp" />
+    <ClCompile Include="1293.cpp" />
+    <ClCompile Include="1294.cpp" />
     <ClCompile Include="1296.cpp" />
     <ClCompile Include="1204.cpp" />
     <ClCompile Include="1206.cpp" />
     <ClCompile Include="1210.cpp" />
     <ClCompile Include="1211.cpp" />
+    <ClCompile Include="1300.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
