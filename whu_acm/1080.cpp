@@ -1,14 +1,14 @@
-//ÓÃÓÚÔËĞĞ
+//ç”¨äºè¿è¡Œ
 //#define MAIN_CPP
 #ifdef MAIN_CPP
 #include <stdio.h> 
 
 /*
- * Ã¿´Î´Õ14¾ÍĞĞ£¬×îºóµÄÈ¡Ê¤ÕßÈ¡¾öÓÚ14Õû³ınµÄ½á¹ûÊÇ·ñÎªÁã£º
+ * æ¯æ¬¡å‡‘14å°±è¡Œï¼Œæœ€åçš„å–èƒœè€…å–å†³äº14æ•´é™¤nçš„ç»“æœæ˜¯å¦ä¸ºé›¶ï¼š
  */
 
-unsigned test_case_num;//²âÊÔÓÃÀı¸öÊı
-unsigned n;//ÊäÈëµÄÕûÊı
+unsigned test_case_num;//æµ‹è¯•ç”¨ä¾‹ä¸ªæ•°
+unsigned n;//è¾“å…¥çš„æ•´æ•°
 
 
 int main()
@@ -17,7 +17,7 @@ int main()
 	for (unsigned i = 0; i < test_case_num; i++)
 	{
 		scanf("%u", &n);
-		if (n % 14)//²»ÄÜÕû³ı
+		if (n % 14)//ä¸èƒ½æ•´é™¤
 			printf("flymouse wins the game!\n");
 		else  printf("snoopy wins the game!\n");
 	}

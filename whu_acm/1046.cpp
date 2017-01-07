@@ -1,18 +1,18 @@
-//ÓÃÓÚÔËĞĞ
+//ç”¨äºè¿è¡Œ
 //#define MAIN_CPP
 #ifdef MAIN_CPP
 #include <stdio.h> 
 
 /*
- * ¼ÆËãÄæĞòÊı£¬È»ºó¼ÓÆğÀ´¾Í¿ÉÒÔÁË
+ * è®¡ç®—é€†åºæ•°ï¼Œç„¶ååŠ èµ·æ¥å°±å¯ä»¥äº†
  */
 
-unsigned test_case_num, nums_size;//²âÊÔÓÃÀıÊı Êı¾İ¹æÄ£
-unsigned nums[3002];//ÊäÈëµÄÊı×Ö
+unsigned test_case_num, nums_size;//æµ‹è¯•ç”¨ä¾‹æ•° æ•°æ®è§„æ¨¡
+unsigned nums[3002];//è¾“å…¥çš„æ•°å­—
 
-unsigned reverse_num;//ÄæĞòÊı
+unsigned reverse_num;//é€†åºæ•°
 
-void caculate_reverse_num();//¼ÆËãÄæĞòÊı
+void caculate_reverse_num();//è®¡ç®—é€†åºæ•°
 
 
 int main()
@@ -24,7 +24,7 @@ int main()
 		for (unsigned i = 0; i<nums_size; i++)
 			scanf("%d", nums + i);
 		caculate_reverse_num();
-		//Êä³ö
+		//è¾“å‡º
 		printf("%u\n", reverse_num);
 	}
 	return 0;
