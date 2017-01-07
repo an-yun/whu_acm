@@ -57,9 +57,6 @@
     <ClCompile Include="1206.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="1043.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="1019.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -79,9 +76,6 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="1152.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="1084.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="1010.cpp">
@@ -190,6 +184,27 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="1328.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="1171.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="1314.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="1372.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="1351.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="1383.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="1045.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="1098.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,5 @@
 //用于运行
-#define MAIN_CPP
+//#define MAIN_CPP
 #ifdef MAIN_CPP
 #include <stdio.h> 
 #include <string.h>
