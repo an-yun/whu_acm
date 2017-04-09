@@ -107,7 +107,7 @@ BigUnsignedInteger & BigUnsignedInteger::mutiply_unsigned_char(BigUnsignedIntege
 		return integer;
 	}
 	size_t integer_length = nums.size();
-	unsigned temp_value = 0;//临时存储的值
+	unsigned long long temp_value = 0;//临时存储的值
 	for(size_t i=0;i<integer_length;i++)
 	{
 		temp_value += nums[i] * u_char;
